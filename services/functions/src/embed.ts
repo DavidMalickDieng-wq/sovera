@@ -77,7 +77,13 @@ async function embedHandler(req: HttpRequest): Promise<HttpResponseInit> {
   if (texts.length > 64) return { status: 400, jsonBody: { error: 'too_many_texts', max: 64 } };
 
   const source = (body.source ?? 'inline').slice(0, 80);
-  const tenant = body.tenant?.trim() || (principal.kind === 'key' ? principal.tenant : null);
+  // Tenant isolation: an API key bound to a tenant always wins; reject mismatched override.
+  const requestedTenant = body.tenant?.trim() || null;
+  const boundTenant = principal.kind === 'key' ? (principal.tenant ?? null) : null;
+  if (boundTenant && requestedTenant && requestedTenant !== boundTenant) {
+    return { status: 403, jsonBody: { error: 'tenant_mismatch', detail: `This API key is scoped to tenant "${boundTenant}".` } };
+  }
+  const tenant = boundTenant ?? requestedTenant;
   const refs = body.refs ?? [];
   const meta = body.metadata ?? [];
 

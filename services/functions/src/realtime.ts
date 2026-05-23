@@ -26,28 +26,43 @@ function safeChannel(s: string): string | null {
   return /^[a-z][a-z0-9_]{0,40}$/.test(v) ? v : null;
 }
 
+// Tenant-locked channel: keys bound to a tenant get an auto-prefix
+// so they cannot publish/subscribe to another tenant's channel.
+function scopeChannel(ch: string, principal: { kind: string; tenant?: string | null }): string {
+  if (principal.kind === 'key' && principal.tenant) {
+    // Sanitize tenant to channel-safe chars; truncate to keep total length sane.
+    const t = principal.tenant.toLowerCase().replace(/[^a-z0-9_]/g, '_').slice(0, 24);
+    return `t_${t}__${ch}`;
+  }
+  return ch;
+}
+
 async function publish(req: HttpRequest): Promise<HttpResponseInit> {
   const g = await guard(req, 'realtime:publish'); if (!g.ok) return g.response;
+  const principal = g.principal;
   let body: { channel?: string; payload?: unknown };
   try { body = (await req.json()) as never; } catch { return { status: 400, jsonBody: { error: 'invalid_json' } }; }
   const ch = safeChannel(body.channel ?? '');
   if (!ch) return { status: 400, jsonBody: { error: 'invalid_channel' } };
+  const scoped = scopeChannel(ch, principal);
   const payload = JSON.stringify(body.payload ?? {});
   if (payload.length > 7000) return { status: 400, jsonBody: { error: 'payload_too_large' } };
   const c = await pgClient();
   try {
-    await c.query(`select pg_notify($1, $2)`, [ch, payload]);
+    await c.query(`select pg_notify($1, $2)`, [scoped, payload]);
   } finally { await c.end(); }
-  return { status: 200, jsonBody: { ok: true, channel: ch } };
+  return { status: 200, jsonBody: { ok: true, channel: ch, scoped } };
 }
 
 async function subscribe(req: HttpRequest): Promise<HttpResponseInit> {
   const g = await guard(req, 'realtime:subscribe'); if (!g.ok) return g.response;
+  const principal = g.principal;
   const ch = safeChannel(req.params.channel ?? '');
   if (!ch) return { status: 400, jsonBody: { error: 'invalid_channel' } };
+  const scoped = scopeChannel(ch, principal);
   const c = await pgClient();
   try {
-    await c.query(`LISTEN ${ch}`);
+    await c.query(`LISTEN ${scoped}`);
     // Collect up to 30s of events then return — clients poll in a loop (SSE not supported on Functions Consumption).
     const events: Array<{ at: string; payload: unknown }> = [];
     const start = Date.now();

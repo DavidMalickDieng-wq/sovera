@@ -17,6 +17,7 @@ const FORBIDDEN = /\b(insert|update|delete|drop|truncate|alter|create|grant|revo
 
 export async function runSql(req: HttpRequest, ctx: InvocationContext): Promise<HttpResponseInit> {
   const g = await guard(req, 'db:read'); if (!g.ok) return g.response;
+  const principal = g.principal;
   let body: SqlBody;
   try { body = (await req.json()) as SqlBody; }
   catch { return { status: 400, jsonBody: { error: 'invalid_json' } }; }
@@ -39,7 +40,15 @@ export async function runSql(req: HttpRequest, ctx: InvocationContext): Promise<
     return { status: 400, jsonBody: { error: 'single_statement_only' } };
   }
 
-  const tenant = (body.tenant ?? '').trim();
+  // Tenant isolation: if the authenticated key is bound to a tenant,
+  // that binding wins — the caller cannot read another tenant's data
+  // by passing a different `tenant` in the body.
+  const requested = (body.tenant ?? '').trim();
+  const boundTenant = principal.kind === 'key' ? (principal.tenant ?? null) : null;
+  if (boundTenant && requested && requested !== boundTenant) {
+    return { status: 403, jsonBody: { error: 'tenant_mismatch', detail: `This API key is scoped to tenant "${boundTenant}".` } };
+  }
+  const tenant = boundTenant ?? requested;
   const pool = await getPool();
   const client = await pool.connect();
   const t0 = Date.now();

@@ -25,13 +25,28 @@ async function userDelegationKey() {
   return blobSvc.getUserDelegationKey(start, expiry);
 }
 
+// Tenant isolation helpers
+type AnyPrincipal = { kind: string; tenant?: string | null };
+function tenantContainerPrefix(p: AnyPrincipal): string | null {
+  if (p.kind !== 'key' || !p.tenant) return null;
+  const slug = p.tenant.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 40);
+  return `tenant-${slug}`;
+}
+function containerAllowed(container: string, p: AnyPrincipal): boolean {
+  const prefix = tenantContainerPrefix(p);
+  if (!prefix) return true; // user sessions or admin keys (tenant=null): unrestricted
+  return container === prefix || container.startsWith(prefix + '-');
+}
+
 async function listContainers(req: HttpRequest): Promise<HttpResponseInit> {
   const g = await guard(req, 'blob:read'); if (!g.ok) return g.response;
+  const principal = g.principal;
+  const prefix = tenantContainerPrefix(principal);
   const out: Array<{ name: string; lastModified?: string; publicAccess?: string }> = [];
-  for await (const c of blobSvc.listContainers({ includeMetadata: false })) {
+  for await (const c of blobSvc.listContainers({ includeMetadata: false, prefix: prefix ?? undefined })) {
     out.push({ name: c.name, lastModified: c.properties.lastModified?.toISOString(), publicAccess: c.properties.publicAccess ?? 'none' });
   }
-  return { status: 200, jsonBody: { account: ACCOUNT, containers: out } };
+  return { status: 200, jsonBody: { account: ACCOUNT, containers: out, tenantScoped: !!prefix } };
 }
 
 async function createContainer(req: HttpRequest): Promise<HttpResponseInit> {
@@ -41,6 +56,9 @@ async function createContainer(req: HttpRequest): Promise<HttpResponseInit> {
   try { body = (await req.json()) as { name?: string }; } catch { return { status: 400, jsonBody: { error: 'invalid_json' } }; }
   const name = (body.name ?? '').trim().toLowerCase();
   if (!/^[a-z0-9][a-z0-9-]{2,62}$/.test(name)) return { status: 400, jsonBody: { error: 'invalid_name', detail: '3-63 chars, lowercase letters/digits/hyphens' } };
+  if (!containerAllowed(name, principal)) {
+    return { status: 403, jsonBody: { error: 'tenant_mismatch', detail: `This API key may only create containers under prefix "${tenantContainerPrefix(principal)}".` } };
+  }
   const c = blobSvc.getContainerClient(name);
   const r = await c.createIfNotExists();
   const actor = actorOf(principal);
@@ -50,8 +68,10 @@ async function createContainer(req: HttpRequest): Promise<HttpResponseInit> {
 
 async function listBlobs(req: HttpRequest): Promise<HttpResponseInit> {
   const g = await guard(req, 'blob:read'); if (!g.ok) return g.response;
+  const principal = g.principal;
   const container = req.params.container;
   if (!/^[a-z0-9][a-z0-9-]{2,62}$/.test(container ?? '')) return { status: 400, jsonBody: { error: 'invalid_container' } };
+  if (!containerAllowed(container, principal)) return { status: 403, jsonBody: { error: 'tenant_mismatch' } };
   const prefix = req.query.get('prefix') ?? undefined;
   const c = blobSvc.getContainerClient(container);
   const blobs: Array<{ name: string; size: number; lastModified?: string; contentType?: string }> = [];
@@ -73,6 +93,7 @@ async function sasForUpload(req: HttpRequest): Promise<HttpResponseInit> {
   const container = req.params.container;
   const name = req.query.get('name');
   if (!container || !name) return { status: 400, jsonBody: { error: 'container_and_name_required' } };
+  if (!containerAllowed(container, principal)) return { status: 403, jsonBody: { error: 'tenant_mismatch' } };
   // Azure blob name rules: 1–1024 chars, any UTF-8 except backslash and control chars.
   if (name.length < 1 || name.length > 1024 || /[\x00-\x1f\x7f\\]/.test(name)) {
     return { status: 400, jsonBody: { error: 'invalid_blob_name', detail: '1–1024 chars, no control chars or backslash', name } };
@@ -97,9 +118,11 @@ async function sasForUpload(req: HttpRequest): Promise<HttpResponseInit> {
 
 async function sasForDownload(req: HttpRequest): Promise<HttpResponseInit> {
   const g = await guard(req, 'blob:read'); if (!g.ok) return g.response;
+  const principal = g.principal;
   const container = req.params.container;
   const name = req.query.get('name');
   if (!container || !name) return { status: 400, jsonBody: { error: 'container_and_name_required' } };
+  if (!containerAllowed(container, principal)) return { status: 403, jsonBody: { error: 'tenant_mismatch' } };
 
   const key = await userDelegationKey();
   const expiresOn = new Date(Date.now() + 10 * 60 * 1000); // 10 min
@@ -122,6 +145,7 @@ async function deleteBlob(req: HttpRequest): Promise<HttpResponseInit> {
   const container = req.params.container;
   const name = req.query.get('name');
   if (!container || !name) return { status: 400, jsonBody: { error: 'container_and_name_required' } };
+  if (!containerAllowed(container, principal)) return { status: 403, jsonBody: { error: 'tenant_mismatch' } };
   const r = await blobSvc.getContainerClient(container).deleteBlob(name);
   const actor = actorOf(principal);
   await audit(actor, 'storage.blob.delete', `${container}/${name}`, true);
