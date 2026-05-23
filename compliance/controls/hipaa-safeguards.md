@@ -1,13 +1,13 @@
-# HIPAA Security Rule — Sovera safeguards mapping
+# HIPAA Security Rule — Gardia safeguards mapping
 
 Reference: 45 CFR §§ 164.302–318 (Security Rule) and §164.404–414 (Breach
-Notification). Sovera positions itself as a **Business Associate** to Covered
+Notification). Gardia positions itself as a **Business Associate** to Covered
 Entities and signs a BAA (see [contracts/baa-template.md](../contracts/baa-template.md)).
 Underlying cloud is Microsoft Azure (Microsoft signs a separate BAA with us).
 
 ## Administrative safeguards (§164.308)
 
-| Standard | Sovera implementation |
+| Standard | Gardia implementation |
 |---|---|
 | (a)(1)(i) Security management process | This compliance pack, change-management policy, quarterly risk review. |
 | (a)(2) Assigned security responsibility | CISO role (TBD); CTO interim. |
@@ -26,7 +26,7 @@ in France Central). Microsoft BAA covers physical safeguards.
 
 ## Technical safeguards (§164.312)
 
-| Standard | Sovera implementation |
+| Standard | Gardia implementation |
 |---|---|
 | (a)(1) Access control — unique user identification | Entra External ID `oid` claim → Postgres `dl.user_sub()` → audit trail. |
 | (a)(2)(i) Emergency access | Break-glass Entra account with PIM JIT activation, MFA enforced. |

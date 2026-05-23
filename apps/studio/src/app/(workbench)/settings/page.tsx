@@ -21,9 +21,9 @@ export default function SettingsPage() {
             <p className="text-[12px] text-(--color-ink-mute) mt-1">Region and APIM endpoint shared across all tenants.</p>
           </div>
         </div>
-        <Field label="Project name"  value="sovera" />
+        <Field label="Project name"  value="gardia" />
         <Field label="Region"        value="francecentral" />
-        <Field label="APIM gateway"  value="https://sovera-apim-prod.azure-api.net" mono />
+        <Field label="APIM gateway"  value="https://gardia-apim-prod.azure-api.net" mono />
         <Field label="Authority"     value="https://login.ciamlogin.com/<tenantId>/v2.0" mono />
       </Card>
 

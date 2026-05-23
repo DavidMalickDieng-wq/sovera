@@ -9,7 +9,7 @@ import { DefaultAzureCredential } from '@azure/identity';
  * We bind the WebSocket to a per-tenant group so a client can only see
  * realtime events for their own tenant.
  */
-const endpoint = process.env.WPS_ENDPOINT!;   // e.g. https://sovera-wps-xxx.webpubsub.azure.com
+const endpoint = process.env.WPS_ENDPOINT!;   // e.g. https://gardia-wps-xxx.webpubsub.azure.com
 const hub = process.env.WPS_HUB ?? 'realtime';
 
 const client = new WebPubSubServiceClient(endpoint, new DefaultAzureCredential(), hub);

@@ -24,6 +24,6 @@ export async function dbPush(opts: { dir?: string }) {
   files.forEach((f, i) => log.step(i + 1, files.length, f));
   log.blank();
   log.warn('Dry run — wire to psql + your control plane DB to execute.');
-  log.hint('Sovera will run each file inside a transaction, recording in dl.migrations.');
+  log.hint('Gardia will run each file inside a transaction, recording in dl.migrations.');
   log.blank();
 }

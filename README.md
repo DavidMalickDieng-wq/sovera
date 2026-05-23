@@ -1,15 +1,15 @@
-# Sovera — Azure-native, HDS/HIPAA-ready Supabase alternative
+# Gardia — Azure-native, HDS/HIPAA-ready Supabase alternative
 
 Self-hosted, France-resident BaaS built entirely on Azure managed services.
-All resources are pinned to **France Central** in resource group **`sovera`**.
+All resources are pinned to **France Central** in resource group **`gardia`**.
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FQuantumboxai%2Fsovera%2Fmain%2Finfra%2Fmain.json)
-[![CodeQL](https://github.com/Quantumboxai/sovera/actions/workflows/codeql.yml/badge.svg)](https://github.com/Quantumboxai/sovera/actions/workflows/codeql.yml)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FQuantumboxai%2Fgardia%2Fmain%2Finfra%2Fmain.json)
+[![CodeQL](https://github.com/Quantumboxai/gardia/actions/workflows/codeql.yml/badge.svg)](https://github.com/Quantumboxai/gardia/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-native-blue.svg)](https://modelcontextprotocol.io)
-[![Website](https://img.shields.io/badge/website-sovera.eu-success)](https://sovera.eu)
+[![Website](https://img.shields.io/badge/website-gardia.cloud-success)](https://gardia.cloud)
 
-> **AI-native BaaS.** Sovera ships with a native [Model Context Protocol](https://modelcontextprotocol.io) server — your data layer plugs directly into Claude, Cursor, GitHub Copilot, and any MCP-compatible agent. Build agentic apps on a backend that's already HDS/HIPAA-ready.
+> **AI-native BaaS.** Gardia ships with a native [Model Context Protocol](https://modelcontextprotocol.io) server — your data layer plugs directly into Claude, Cursor, GitHub Copilot, and any MCP-compatible agent. Build agentic apps on a backend that's already HDS/HIPAA-ready.
 
 
 ## Why this stack wins enterprise compliance deals
@@ -78,7 +78,7 @@ azd up
 - [x] Phase 1 — Data plane (Postgres Flex HA + CMK, Blob CMK, Event Hubs)
 - [x] Phase 2 — API plane (ACA env, DAB, Functions Flex, Web PubSub, realtime bridge, APIM Premium)
 - [x] Phase 3 — Identity (Entra External ID + APIM JWT policy + RLS wiring + SDK + sample)
-- [x] Phase 4 — Studio (Next.js admin) + CLI (`sovera init / db push / functions deploy`)
+- [x] Phase 4 — Studio (Next.js admin) + CLI (`gardia init / db push / functions deploy`)
 - [x] Phase 5 — Tenant module (per-customer isolated stack: DB, container, hub, APIM product)
 - [x] Phase 6 — Compliance pack (DPIA, RoPA, HDS evidence, Sentinel workbooks, BAA)
 
@@ -97,7 +97,7 @@ product + per-tier rate limit/quota, Key Vault secrets) with a single command:
 
 That script:
 
-1. Discovers shared platform resources in the `sovera` RG.
+1. Discovers shared platform resources in the `gardia` RG.
 2. Deploys `infra/modules/tenant.bicep` (per-tenant Azure resources).
 3. Runs `services/db/tenant-bootstrap.sql` against the new database (pins it to
    the tenant UUID via `dl.this_tenant()`, creates roles, RLS, audit, publication).
@@ -142,7 +142,7 @@ To run it **on Azure** (Container Apps + private ACR, behind the same ACA env as
 ```powershell
 # one-time
 azd auth login
-azd env new sovera-prod
+azd env new gardia-prod
 azd env set DEPLOY_API_PLANE true
 azd env set DEPLOY_STUDIO    true
 
@@ -155,7 +155,7 @@ azd deploy studio
 
 `infra/modules/studio.bicep` provisions an Azure Container Registry (Basic),
 grants `AcrPull` to the existing CMK managed identity, then creates a
-`sovera-studio` Container App with external HTTPS ingress on port 3000.
+`gardia-studio` Container App with external HTTPS ingress on port 3000.
 The first deploy runs from a placeholder image (`studioImageTag=bootstrap`);
 `azd deploy studio` builds [`apps/studio/Dockerfile`](./apps/studio/Dockerfile)
 remotely in ACR and rolls a new revision. URL is emitted as the `studioUrl`
@@ -181,12 +181,12 @@ The CLI ([`packages/cli`](./packages/cli/)) is the same operations surface
 without the browser:
 
 ```powershell
-npm install -g @sovera/cli   # or: cd packages/cli && npm link
+npm install -g @gardia/cli   # or: cd packages/cli && npm link
 
-sovera init                       # scaffold sovera.config.json
-sovera login                      # az login
-sovera db push                    # apply SQL migrations
-sovera tenant create acme -t pro  # delegates to scripts/tenant-onboard.ps1
-sovera functions deploy           # publish all function apps
-sovera status                     # live `az resource list` against your RG
+gardia init                       # scaffold gardia.config.json
+gardia login                      # az login
+gardia db push                    # apply SQL migrations
+gardia tenant create acme -t pro  # delegates to scripts/tenant-onboard.ps1
+gardia functions deploy           # publish all function apps
+gardia status                     # live `az resource list` against your RG
 ```

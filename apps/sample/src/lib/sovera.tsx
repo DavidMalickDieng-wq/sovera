@@ -1,11 +1,11 @@
 'use client';
 
-import { createClient, type SoveraClient } from '@sovera/client';
+import { createClient, type GardiaClient } from '@gardia/client';
 import { createContext, useContext, useMemo } from 'react';
 
-const Ctx = createContext<SoveraClient | null>(null);
+const Ctx = createContext<GardiaClient | null>(null);
 
-export function SoveraProvider({ children }: { children: React.ReactNode }) {
+export function GardiaProvider({ children }: { children: React.ReactNode }) {
   const client = useMemo(
     () =>
       createClient({
@@ -18,8 +18,8 @@ export function SoveraProvider({ children }: { children: React.ReactNode }) {
   return <Ctx.Provider value={client}>{children}</Ctx.Provider>;
 }
 
-export function useSovera(): SoveraClient {
+export function useGardia(): GardiaClient {
   const c = useContext(Ctx);
-  if (!c) throw new Error('Wrap your app in <SoveraProvider>');
+  if (!c) throw new Error('Wrap your app in <GardiaProvider>');
   return c;
 }

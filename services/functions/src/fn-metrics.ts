@@ -29,7 +29,7 @@ type Failure = {
 const STATS_KQL = `
 AppRequests
 | where TimeGenerated > ago(24h)
-| where AppRoleName has 'sovera-fn' or cloud_RoleName has 'sovera-fn' or OperationName != ''
+| where AppRoleName has 'gardia-fn' or cloud_RoleName has 'gardia-fn' or OperationName != ''
 | summarize
     count_ = count(),
     errors = countif(Success == false),

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 
 interface Patient {
   id: string;
@@ -11,7 +11,7 @@ interface Patient {
 }
 
 export default function Home() {
-  const dl = useSovera();
+  const dl = useGardia();
   const [user, setUser] = useState<any>(null);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [name, setName] = useState('');
@@ -44,7 +44,7 @@ export default function Home() {
   if (!user) {
     return (
       <main>
-        <h1>Sovera sample</h1>
+        <h1>Gardia sample</h1>
         <button onClick={async () => setUser(await dl.auth.signIn())}>Sign in</button>
       </main>
     );

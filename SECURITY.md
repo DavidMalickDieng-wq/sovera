@@ -2,9 +2,9 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Sovera, **please do not open a public GitHub issue**.
+If you discover a security vulnerability in Gardia, **please do not open a public GitHub issue**.
 
-Instead, email **security@sovera.eu** with:
+Instead, email **security@gardia.cloud** with:
 
 - A description of the issue
 - Steps to reproduce
@@ -16,16 +16,16 @@ We aim to acknowledge reports within **3 business days** and to ship a fix or mi
 ## Scope
 
 In scope:
-- `@sovera/mcp` (this repo — `packages/mcp-server/`)
-- `@sovera/client` (this repo — `packages/client/`)
-- Sovera Functions backend (this repo — `services/functions/`)
-- Sovera Studio (this repo — `apps/studio/`)
+- `@gardia/mcp` (this repo — `packages/mcp-server/`)
+- `@gardia/client` (this repo — `packages/client/`)
+- Gardia Functions backend (this repo — `services/functions/`)
+- Gardia Studio (this repo — `apps/studio/`)
 - Infra templates (this repo — `infra/`)
-- Hosted endpoints under `*.sovera.eu`
+- Hosted endpoints under `*.gardia.cloud`
 
 Out of scope:
 - Denial-of-service attacks
-- Social engineering of Sovera staff
+- Social engineering of Gardia staff
 - Findings from automated scanners without a working PoC
 - Issues in third-party dependencies already disclosed upstream (please report to the upstream project)
 
@@ -40,4 +40,4 @@ We will not pursue legal action against researchers who:
 - Give us reasonable time to fix issues before public disclosure
 - Do not exploit the vulnerability beyond what is necessary to demonstrate it
 
-Thank you for helping keep Sovera and its users safe.
+Thank you for helping keep Gardia and its users safe.

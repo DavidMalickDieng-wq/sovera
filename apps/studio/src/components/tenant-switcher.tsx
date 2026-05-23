@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { ChevronsUpDown, Check, Shield } from 'lucide-react';
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 import { Badge } from './ui';
 
 const tierTone = { starter: 'neutral', pro: 'violet', enterprise: 'cyan' } as const;
 
 export function TenantSwitcher() {
   const [open, setOpen] = useState(false);
-  const { tenant, setTenantSlug, tenants, impersonating } = useSovera();
+  const { tenant, setTenantSlug, tenants, impersonating } = useGardia();
 
   return (
     <div className="relative">
@@ -48,7 +48,7 @@ export function TenantSwitcher() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[13px] text-(--color-ink) truncate">{t.name}</div>
-                  <div className="text-[11px] text-(--color-ink-mute) truncate">{t.slug}.sovera.cloud</div>
+                  <div className="text-[11px] text-(--color-ink-mute) truncate">{t.slug}.gardia.cloud</div>
                 </div>
                 <Badge tone={tierTone[t.tier]}>{t.tier}</Badge>
                 {t.slug === tenant.slug && <Check className="h-4 w-4 text-(--color-cyan)" />}

@@ -1,5 +1,5 @@
-// Quick MCP smoke test — spawns the server, lists tools, calls sovera_tables_list,
-// then sovera_sql with a trivial SELECT, then sovera_compliance_status.
+// Quick MCP smoke test — spawns the server, lists tools, calls gardia_tables_list,
+// then gardia_sql with a trivial SELECT, then gardia_compliance_status.
 import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 
@@ -7,12 +7,12 @@ const FUNC_KEY = readFileSync('c:/users/david/doculink/.func-key', 'utf-8').trim
 const URL_ = 'https://sovera-fn-h2ssji7afhlr2.azurewebsites.net';
 
 // The function key works on routes with authLevel=function via ?code= or x-functions-key
-// but our auth.ts also accepts it as Bearer. We'll use it as SOVERA_KEY for now.
+// but our auth.ts also accepts it as Bearer. We'll use it as GARDIA_KEY for now.
 const env = {
   ...process.env,
-  SOVERA_URL: URL_,
-  SOVERA_KEY: FUNC_KEY,
-  SOVERA_READ_ONLY: '1',
+  GARDIA_URL: URL_,
+  GARDIA_KEY: FUNC_KEY,
+  GARDIA_READ_ONLY: '1',
 };
 
 const child = spawn(process.execPath, ['c:/users/david/doculink/packages/mcp-server/dist/index.js'], { env, stdio: ['pipe', 'pipe', 'pipe'] });
@@ -58,17 +58,17 @@ function waitFor(id, timeout = 30000) {
   console.log('tools:', list.result.tools.length, '→', list.result.tools.map(t => t.name).join(', '));
 
   // call compliance
-  send({ jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'sovera_compliance_status', arguments: {} } });
+  send({ jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'gardia_compliance_status', arguments: {} } });
   const comp = await waitFor(3);
   console.log('compliance OK:', String(comp.result?.content?.[0]?.text || '').slice(0, 200));
 
   // call sql (read-only — SELECT 1)
-  send({ jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'sovera_sql', arguments: { sql: 'select 1 as ok' } } });
+  send({ jsonrpc: '2.0', id: 4, method: 'tools/call', params: { name: 'gardia_sql', arguments: { sql: 'select 1 as ok' } } });
   const sqlRes = await waitFor(4);
   console.log('sql OK:', String(sqlRes.result?.content?.[0]?.text || '').slice(0, 200));
 
   // try a write — should be rejected by read-only guard
-  send({ jsonrpc: '2.0', id: 5, method: 'tools/call', params: { name: 'sovera_sql', arguments: { sql: 'delete from foo' } } });
+  send({ jsonrpc: '2.0', id: 5, method: 'tools/call', params: { name: 'gardia_sql', arguments: { sql: 'delete from foo' } } });
   const writeRes = await waitFor(5);
   console.log('write blocked:', writeRes.result?.isError === true ? 'YES ✓' : 'NO ✗', '→', String(writeRes.result?.content?.[0]?.text || '').slice(0, 120));
 

@@ -1,4 +1,4 @@
-# Sovera compliance pack
+# Gardia compliance pack
 
 This folder is the source of truth for everything an enterprise security /
 compliance team will ask for during procurement. It is versioned with the code
@@ -8,7 +8,7 @@ so every release ships a matching evidence bundle.
 compliance/
 ├── README.md                       ← you are here
 ├── controls/
-│   ├── hds-control-mapping.md      ← HDS articles → Sovera controls → evidence
+│   ├── hds-control-mapping.md      ← HDS articles → Gardia controls → evidence
 │   ├── hipaa-safeguards.md         ← HIPAA Security Rule (45 CFR §164.3xx) mapping
 │   ├── iso27001-soa.md             ← ISO 27001:2022 Statement of Applicability
 │   └── gdpr-art32-mapping.md       ← GDPR Art. 32 technical & organisational measures
@@ -18,7 +18,7 @@ compliance/
 ├── contracts/
 │   ├── baa-template.md             ← Business Associate Agreement (HIPAA)
 │   ├── dpa-template.md             ← Data Processing Agreement (GDPR Art. 28)
-│   └── sla.md                      ← Sovera SLA + RPO/RTO commitments
+│   └── sla.md                      ← Gardia SLA + RPO/RTO commitments
 ├── incident/
 │   └── incident-response-plan.md   ← P0 runbook + breach notification timeline
 ├── policies/

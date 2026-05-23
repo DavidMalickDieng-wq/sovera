@@ -2,7 +2,7 @@
 
 ## Goal
 
-Every change to the Sovera platform is **traceable, peer-reviewed, automatically
+Every change to the Gardia platform is **traceable, peer-reviewed, automatically
 validated, and reversible**.
 
 ## Source of truth
@@ -27,7 +27,7 @@ branch → PR → CI gates → 2 reviewers → merge → CD (azd up to staging) 
 
 ### Reviewers
 - 2 approvers required on `main`.
-- 1 must be from `sovera-admins` if the change touches:
+- 1 must be from `gardia-admins` if the change touches:
   - Bicep files in [infra/modules/](../../infra/modules/)
   - Key Vault policies
   - APIM policies

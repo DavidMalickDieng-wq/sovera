@@ -1,11 +1,11 @@
-// Real compliance: pulls live Azure Policy compliance state for the sovera RG,
+// Real compliance: pulls live Azure Policy compliance state for the gardia RG,
 // plus actual TLS/HTTPS/auth/encryption settings on the Function App + Postgres.
 import { app, HttpRequest, HttpResponseInit } from '@azure/functions';
 import { DefaultAzureCredential } from '@azure/identity';
 import { guard } from './auth.js';
 
-const SUB = process.env.SOVERA_SUB ?? process.env.WEBSITE_OWNER_NAME?.split('+')[0] ?? '';
-const RG = process.env.SOVERA_RG ?? 'sovera';
+const SUB = process.env.GARDIA_SUB ?? process.env.WEBSITE_OWNER_NAME?.split('+')[0] ?? '';
+const RG = process.env.GARDIA_RG ?? 'gardia';
 const credential = new DefaultAzureCredential();
 
 let mgmtToken = ''; let mgmtTokenExp = 0;
@@ -87,7 +87,7 @@ async function complianceHandler(req: HttpRequest): Promise<HttpResponseInit> {
   } catch (e) { out.secureScoreError = (e as Error).message; }
 
   // 5) Region pin
-  out.region = process.env.SOVERA_REGION ?? 'francecentral';
+  out.region = process.env.GARDIA_REGION ?? 'francecentral';
   out.at = new Date().toISOString();
   return { status: 200, jsonBody: out };
 }

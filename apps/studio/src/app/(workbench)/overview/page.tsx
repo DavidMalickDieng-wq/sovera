@@ -1,6 +1,6 @@
 'use client';
 
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 import { H1, Card, CardTitle, Stat, Badge, Button } from '@/components/ui';
 import { ComplianceBadge } from '@/components/compliance-badge';
 import { complianceFlags, tenants, logs } from '@/lib/mock';
@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 
 export default function OverviewPage() {
-  const { tenant } = useSovera();
+  const { tenant } = useGardia();
   const activeTenants = tenants.filter(t => t.status === 'active').length;
 
   return (
@@ -24,7 +24,7 @@ export default function OverviewPage() {
             <ComplianceBadge code="HDS §5.4.2" label="Per-tenant access auditing" />
           </div>
           <H1>
-            <span className="brand-text">Sovera</span> control plane is healthy.
+            <span className="brand-text">Gardia</span> control plane is healthy.
           </H1>
           <p className="text-(--color-ink-mute) text-[14px] mt-1.5 max-w-xl">
             One sovereign backend. Postgres, storage, realtime, and serverless — fronted by APIM, secured by Entra,

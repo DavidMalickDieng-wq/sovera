@@ -1,6 +1,6 @@
 # GDPR Article 32 — Technical & organisational measures
 
-Sovera is a **processor** for customers' personal data. This document lists the
+Gardia is a **processor** for customers' personal data. This document lists the
 Article 32 measures we implement; combine with the [DPA template](../contracts/dpa-template.md)
 for the contractual binding.
 

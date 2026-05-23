@@ -51,7 +51,7 @@ export default function AuthPage() {
           <div className="grid grid-cols-2 gap-4">
             <Field label="Provider" value="Microsoft Entra ID" />
             <Field label="Mode" value="Easy Auth (ACA managed)" />
-            <Field label="App registration" value="Sovera Studio" mono />
+            <Field label="App registration" value="Gardia Studio" mono />
             <Field label="Client ID" value="c5edbba7-3c93-4734-9b38-feed115ed695" mono />
             <Field label="Tenant ID" value={me?.tid ?? '533005c0-8ef0-404d-985a-7ca64041253a'} mono />
             <Field label="Flow" value="response_type=code id_token (form_post)" mono />

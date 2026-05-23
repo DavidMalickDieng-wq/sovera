@@ -1,5 +1,5 @@
 {
-  "name": "sovera-sample",
+  "name": "gardia-sample",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,7 +9,7 @@
     "start": "next start -p 3000"
   },
   "dependencies": {
-    "@sovera/client": "file:../../packages/client",
+    "@gardia/client": "file:../../packages/client",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

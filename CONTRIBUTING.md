@@ -1,4 +1,4 @@
-# Contributing to Sovera
+# Contributing to Gardia
 
 Thanks for your interest in contributing! A few ground rules so everyone stays protected.
 

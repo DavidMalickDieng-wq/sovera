@@ -1,15 +1,15 @@
-# azd project file — Sovera
+# azd project file — Gardia
 # Run from repo root:
 #   azd auth login
-#   azd env new sovera-prod
+#   azd env new gardia-prod
 #   azd up                       # provision + build + push + deploy
 # Or step-by-step:
 #   azd provision                # bicep only
 #   azd deploy studio            # build container, push to ACR, update revision
 
-name: sovera
+name: gardia
 metadata:
-  template: sovera@0.1.0
+  template: gardia@0.1.0
 
 infra:
   provider: bicep

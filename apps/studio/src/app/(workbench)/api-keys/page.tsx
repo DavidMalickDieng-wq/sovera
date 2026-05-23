@@ -249,7 +249,7 @@ export default function ApiKeysPage() {
       <Card>
         <CardTitle>How to use</CardTitle>
         <pre className="mt-3 text-[12px] font-mono text-(--color-ink-dim) bg-black/30 border border-(--color-line) rounded-md p-3 overflow-x-auto">{`curl https://sovera-fn-h2ssji7afhlr2.azurewebsites.net/api/sql \\
-  -H "Authorization: Bearer $SOVERA_KEY" \\
+  -H "Authorization: Bearer $GARDIA_KEY" \\
   -H "content-type: application/json" \\
   -d '{"sql":"select 1"}'`}</pre>
       </Card>

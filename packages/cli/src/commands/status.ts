@@ -8,13 +8,13 @@ type Resource = { id: string; name: string; type: string; location: string };
 
 export async function status(opts: { rg?: string }) {
   banner();
-  log.brand('Sovera status');
+  log.brand('Gardia status');
   log.blank();
 
   let rg = opts.rg;
   if (!rg) {
     try {
-      const cfg = JSON.parse(await fs.readFile(path.resolve(process.cwd(), 'sovera.config.json'), 'utf-8'));
+      const cfg = JSON.parse(await fs.readFile(path.resolve(process.cwd(), 'gardia.config.json'), 'utf-8'));
       rg = cfg.rg ?? cfg.resourceGroup;
     } catch { /* ignore */ }
   }
@@ -48,17 +48,17 @@ function groupByType(items: Resource[]) {
 
 function showMock() {
   const groups = [
-    ['Microsoft.DBforPostgreSQL/flexibleServers', ['sovera-pg-fr-c']],
-    ['Microsoft.Storage/storageAccounts',         ['soverastfrc']],
-    ['Microsoft.SignalRService/webPubSub',        ['sovera-wps-fr-c']],
-    ['Microsoft.ApiManagement/service',           ['sovera-apim-prod']],
-    ['Microsoft.KeyVault/vaults',                 ['sovera-kv-prod']],
-    ['Microsoft.Web/sites',                       ['sovera-fn-data', 'sovera-fn-auth', 'sovera-fn-edge']],
+    ['Microsoft.DBforPostgreSQL/flexibleServers', ['gardia-pg-fr-c']],
+    ['Microsoft.Storage/storageAccounts',         ['gardiastfrc']],
+    ['Microsoft.SignalRService/webPubSub',        ['gardia-wps-fr-c']],
+    ['Microsoft.ApiManagement/service',           ['gardia-apim-prod']],
+    ['Microsoft.KeyVault/vaults',                 ['gardia-kv-prod']],
+    ['Microsoft.Web/sites',                       ['gardia-fn-data', 'gardia-fn-auth', 'gardia-fn-edge']],
   ] as const;
   for (const [t, items] of groups) {
     console.log('  ' + pc.dim(t));
     for (const n of items) console.log(`    ${pc.green('●')} ${n} ${pc.dim('· francecentral')}`);
   }
   log.blank();
-  log.ok('Mock view — run `sovera login` and re-run for live status.');
+  log.ok('Mock view — run `gardia login` and re-run for live status.');
 }

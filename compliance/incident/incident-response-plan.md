@@ -1,6 +1,6 @@
 # Incident Response Plan
 
-Audience: Sovera SRE on-call + executive leadership.
+Audience: Gardia SRE on-call + executive leadership.
 Severity scale aligned with [SLA](../contracts/sla.md) and HIPAA/GDPR breach
 notification timelines.
 

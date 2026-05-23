@@ -1,5 +1,5 @@
 // Mock data — replaces live SDK calls until the platform is deployed.
-// All values are intentionally illustrative; swap with `useSovera()` queries.
+// All values are intentionally illustrative; swap with `useGardia()` queries.
 
 export type Tenant = {
   slug: string;
@@ -91,9 +91,9 @@ export const logs: LogEvent[] = [
   { ts: '12:42:18.211', level: 'info',  source: 'apim',      tenant: 'acme',    msg: 'GET /data/rest/Patient 200 in 38ms (sub=eaa3…f1)' },
   { ts: '12:42:18.044', level: 'info',  source: 'dab',       tenant: 'acme',    msg: 'SET app.claims.tid = 7c2…b1 (RLS pinned)' },
   { ts: '12:42:17.901', level: 'info',  source: 'apim',      tenant: 'nimbus',  msg: 'POST /functions/v1/storage 200 in 71ms' },
-  { ts: '12:42:17.788', level: 'warn',  source: 'postgres',  tenant: 'aurora',  msg: 'sovera: tenant claim missing — rejected (assert_tenant)' },
+  { ts: '12:42:17.788', level: 'warn',  source: 'postgres',  tenant: 'aurora',  msg: 'gardia: tenant claim missing — rejected (assert_tenant)' },
   { ts: '12:42:17.612', level: 'info',  source: 'wps',       tenant: 'acme',    msg: 'broadcast tenant.acme → 142 clients (28KB)' },
-  { ts: '12:42:17.502', level: 'info',  source: 'functions', tenant: 'acme',    msg: 'negotiate → wss://sovera-wps-…/client/hubs/realtime' },
+  { ts: '12:42:17.502', level: 'info',  source: 'functions', tenant: 'acme',    msg: 'negotiate → wss://gardia-wps-…/client/hubs/realtime' },
   { ts: '12:42:17.330', level: 'error', source: 'sentinel',                       msg: 'Rule "Storage shared-key usage" — 0 hits in 24h ✓' },
 ];
 

@@ -57,7 +57,7 @@ export default function TenantsPage() {
                       </div>
                       <div>
                         <div className="text-(--color-ink)">{t.name}</div>
-                        <div className="text-[11px] text-(--color-ink-mute) font-mono">{t.slug}.sovera.cloud · {t.region}</div>
+                        <div className="text-[11px] text-(--color-ink-mute) font-mono">{t.slug}.gardia.cloud · {t.region}</div>
                       </div>
                     </div>
                   </td>
@@ -94,7 +94,7 @@ export default function TenantsPage() {
         <CardTitle>How onboarding works</CardTitle>
         <ol className="text-[13px] text-(--color-ink-dim) space-y-2 list-decimal pl-5 marker:text-(--color-ink-mute)">
           <li>Pick a slug + tier (Starter / Pro / Enterprise).</li>
-          <li>Sovera deploys <span className="font-mono text-(--color-ink)">infra/modules/tenant.bicep</span> into your RG — DB, container, hub, KV secrets, APIM product+sub.</li>
+          <li>Gardia deploys <span className="font-mono text-(--color-ink)">infra/modules/tenant.bicep</span> into your RG — DB, container, hub, KV secrets, APIM product+sub.</li>
           <li><span className="font-mono text-(--color-ink)">services/db/tenant-bootstrap.sql</span> pins the new database to its tenant UUID via <span className="font-mono text-(--color-ink)">dl.this_tenant()</span>.</li>
           <li>Tenant credentials land in Key Vault; APIM subscription key is emitted to the operator.</li>
         </ol>

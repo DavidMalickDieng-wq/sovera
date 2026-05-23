@@ -13,8 +13,8 @@ type Tenant = {
   storageGb: number;
 };
 
-// Sovera tenants are stored either:
-//   (a) in a `sovera.tenants` table when the platform schema is seeded, or
+// Gardia tenants are stored either:
+//   (a) in a `gardia.tenants` table when the platform schema is seeded, or
 //   (b) one DB per tenant (early adopter pattern).
 // We try (a) first, then fall back to (b).
 const TENANTS_TABLE_SQL = `
@@ -22,7 +22,7 @@ const TENANTS_TABLE_SQL = `
          created_at::text AS created_at,
          COALESCE(rps, 0)::int AS rps,
          COALESCE(storage_gb, 0)::int AS storage_gb
-  FROM sovera.tenants
+  FROM gardia.tenants
   ORDER BY created_at DESC NULLS LAST
   LIMIT 200;
 `;
@@ -37,7 +37,7 @@ const DBS_SQL = `
 
 export async function tenants(req: HttpRequest, ctx: InvocationContext): Promise<HttpResponseInit> {
   const g = await guard(req, 'db:read'); if (!g.ok) return g.response;
-  // Try the canonical sovera.tenants table.
+  // Try the canonical gardia.tenants table.
   try {
     const r = await query<{ slug: string; name: string; tier: Tenant['tier']; region: string; status: Tenant['status']; created_at: string; rps: number; storage_gb: number }>(TENANTS_TABLE_SQL);
     return {
@@ -50,7 +50,7 @@ export async function tenants(req: HttpRequest, ctx: InvocationContext): Promise
       } satisfies Tenant)),
     };
   } catch (e) {
-    ctx.info('sovera.tenants not present, falling back to pg_database', (e as Error)?.message);
+    ctx.info('gardia.tenants not present, falling back to pg_database', (e as Error)?.message);
   }
 
   // Fallback: derive a tenant per non-system database.

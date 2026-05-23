@@ -1,5 +1,5 @@
 // Shared auth helper: validates either an Easy Auth user (x-ms-client-principal header)
-// or a Sovera API key (Authorization: Bearer sov_live_... or x-api-key header).
+// or a Gardia API key (Authorization: Bearer sov_live_... or x-api-key header).
 // API keys are stored hashed (SHA-256) in app.api_keys.
 import { HttpRequest } from '@azure/functions';
 import crypto from 'crypto';

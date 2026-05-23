@@ -4,10 +4,10 @@ import { app, HttpRequest, HttpResponseInit } from '@azure/functions';
 
 export async function platform(_req: HttpRequest): Promise<HttpResponseInit> {
   const facts = {
-    region: process.env.SOVERA_REGION ?? 'francecentral',
-    resourceGroup: process.env.SOVERA_RG ?? 'sovera',
-    subscription: process.env.SOVERA_SUB ?? '533005c0-8ef0-404d-985a-7ca64041253a',
-    functionApp: process.env.WEBSITE_SITE_NAME ?? 'sovera-fn',
+    region: process.env.GARDIA_REGION ?? 'francecentral',
+    resourceGroup: process.env.GARDIA_RG ?? 'gardia',
+    subscription: process.env.GARDIA_SUB ?? '533005c0-8ef0-404d-985a-7ca64041253a',
+    functionApp: process.env.WEBSITE_SITE_NAME ?? 'gardia-fn',
     pgHost: process.env.PG_HOST ?? 'unknown',
     pgDb: process.env.PG_DB ?? 'postgres',
     pgUser: process.env.PG_USER ?? 'unknown',

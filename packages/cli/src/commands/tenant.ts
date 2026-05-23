@@ -20,7 +20,7 @@ export async function tenantCreate(slug: string, opts: { tier?: string; rg?: str
 
   const script = path.resolve(process.cwd(), 'scripts/tenant-onboard.ps1');
   log.info(`Tier:           ${tier}`);
-  log.info(`Resource group: ${opts.rg ?? '<from sovera.config.json>'}`);
+  log.info(`Resource group: ${opts.rg ?? '<from gardia.config.json>'}`);
   log.info(`Script:         ${path.relative(process.cwd(), script)}`);
   log.blank();
   log.step(1, 4, 'Discover existing RG resources (KV, APIM, WPS, Postgres)');
@@ -41,5 +41,5 @@ export async function tenantCreate(slug: string, opts: { tier?: string; rg?: str
     return;
   }
   log.ok(`Tenant ${slug} is live.`);
-  log.hint(`Try: sovera status`);
+  log.hint(`Try: gardia status`);
 }

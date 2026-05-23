@@ -3,12 +3,12 @@
 > Aligned with GDPR Art. 28 and EDPB DPA guidance. Have qualified EU
 > counsel review before signing.
 
-Between **[Customer Legal Name]** ("Controller") and **Sovera SAS**, RCS [], headquartered at [], ("Processor"), effective **[Effective Date]**.
+Between **[Customer Legal Name]** ("Controller") and **Gardia SAS**, RCS [], headquartered at [], ("Processor"), effective **[Effective Date]**.
 
 ## 1. Subject matter
 
 Processor will Process Personal Data on behalf of Controller solely for the
-purpose of providing the Sovera platform services described in the underlying
+purpose of providing the Gardia platform services described in the underlying
 Services Agreement.
 
 ## 2. Duration
@@ -93,4 +93,4 @@ See [controls/gdpr-art32-mapping.md](../controls/gdpr-art32-mapping.md). Highlig
 
 Signed for **Controller**: ______________________  Date: __________
 
-Signed for **Processor (Sovera SAS)**: ______________________  Date: __________
+Signed for **Processor (Gardia SAS)**: ______________________  Date: __________

@@ -9,7 +9,7 @@
 | DPIA reference | `DPIA-<tenant-slug>-<YYYYMMDD>` |
 | Processing activity | e.g. "Patient record management for outpatient clinic" |
 | Customer (controller) | |
-| Sovera (processor) contact | |
+| Gardia (processor) contact | |
 | DPO (controller side) | |
 | Date drafted | |
 | Date reviewed | |
@@ -32,7 +32,7 @@
 
 ### 1.3 Recipients
 - Internal: care team within the customer's organisation (Entra group).
-- Processors: Sovera (this DPIA); Microsoft Azure (sub-processor, HDS-certified).
+- Processors: Gardia (this DPIA); Microsoft Azure (sub-processor, HDS-certified).
 - Third parties: none unless explicitly listed here.
 
 ### 1.4 Retention
@@ -51,16 +51,16 @@ Describe data flows. Reference the [architecture diagram](../../README.md).
 - Accuracy: edits are audit-trailed; subjects can request correction via the controller.
 
 ### 2.2 Rights of data subjects
-| Right | How Sovera supports it |
+| Right | How Gardia supports it |
 |---|---|
-| Information | Controller's privacy notice references Sovera as processor. |
+| Information | Controller's privacy notice references Gardia as processor. |
 | Access | DAB GraphQL query scoped by `tenant_id`. |
 | Rectification | Standard UPDATE through DAB; audit trail preserved. |
 | Erasure | DELETE through DAB or per-subject purge job; audit row marked `op=DELETE`. |
 | Restriction | Application-level flag (controller implements). |
 | Portability | Export endpoint produces JSONL + linked blobs. |
 | Objection | Application-level (controller). |
-| Automated decision-making | None by Sovera platform. |
+| Automated decision-making | None by Gardia platform. |
 
 ## 3. Risk assessment
 
@@ -68,7 +68,7 @@ For each risk, document **threat**, **likelihood (1–4)**, **severity (1–4)**
 
 ### 3.1 Illegitimate access
 - Threats: insider abuse, credential theft, mis-scoped query.
-- Controls: Entra MFA + conditional access; Postgres RLS forced; per-tenant DB; KV-stored credentials; pgaudit; Sentinel rule `Sovera-AdminSignInFromNewIP`.
+- Controls: Entra MFA + conditional access; Postgres RLS forced; per-tenant DB; KV-stored credentials; pgaudit; Sentinel rule `Gardia-AdminSignInFromNewIP`.
 - Residual: **Low**.
 
 ### 3.2 Unwanted modification

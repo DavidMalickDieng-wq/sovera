@@ -122,7 +122,7 @@ export default function CompliancePage() {
       <Card>
         <div className="flex items-center gap-2"><Shield className="h-4 w-4 text-(--color-good)" /><CardTitle>What this means</CardTitle></div>
         <p className="mt-2 text-[12px] text-(--color-ink-dim) leading-relaxed">
-          Every value above is fetched at page-load from Azure&apos;s management API using the Function App&apos;s managed identity. There is no static cert badge — if Azure Policy flags a non-compliant resource, you see it here within seconds. Generate an audit-time-window evidence pack from the CLI: <code className="font-mono text-(--color-ink)">sovera evidence export --since 30d</code>.
+          Every value above is fetched at page-load from Azure&apos;s management API using the Function App&apos;s managed identity. There is no static cert badge — if Azure Policy flags a non-compliant resource, you see it here within seconds. Generate an audit-time-window evidence pack from the CLI: <code className="font-mono text-(--color-ink)">gardia evidence export --since 30d</code>.
         </p>
         <div className="mt-3 text-[10px] font-mono text-(--color-ink-mute)">last refreshed: {d?.at}</div>
       </Card>

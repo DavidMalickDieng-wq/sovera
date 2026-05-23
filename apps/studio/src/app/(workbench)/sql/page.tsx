@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { H1, Card, CardTitle, Badge, Button } from '@/components/ui';
 import { ComplianceBadge } from '@/components/compliance-badge';
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 import { Play, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 
 const PRESETS = [
@@ -21,7 +21,7 @@ order by mean_exec_time desc limit 20;` },
 ];
 
 export default function SQLPage() {
-  const { tenant } = useSovera();
+  const { tenant } = useGardia();
   const [sql, setSql] = useState(`-- Run as tenant: ${tenant.slug}
 select id, full_name, dob
 from app.patients
@@ -107,7 +107,7 @@ limit 50;`);
           <Card className="!p-0">
             <div className="flex items-center justify-between px-4 py-2 border-b border-(--color-line)">
               <div className="flex items-center gap-2 text-[11px] text-(--color-ink-mute) font-mono">
-                <span className="h-2 w-2 rounded-full bg-(--color-good)" /> sovera-pg-fr-c · search_path=app,public
+                <span className="h-2 w-2 rounded-full bg-(--color-good)" /> gardia-pg-fr-c · search_path=app,public
               </div>
               <span className="text-[11px] text-(--color-ink-mute)">{sql.length} chars</span>
             </div>

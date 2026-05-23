@@ -15,7 +15,7 @@ async function listAssignments(req: HttpRequest): Promise<HttpResponseInit> {
     await query(
       `insert into app.role_assignments (principal, principal_name, role, scope)
        values ($1,$2,$3,$4) on conflict do nothing`,
-      ['MoiseAlexandreGBAGUIDI@QUANTUMBOX353.onmicrosoft.com', 'Moïse Alexandre GBAGUIDI', 'Owner', 'project:sovera'],
+      ['MoiseAlexandreGBAGUIDI@QUANTUMBOX353.onmicrosoft.com', 'Moïse Alexandre GBAGUIDI', 'Owner', 'project:gardia'],
     );
   }
   const r = await query<{
@@ -37,7 +37,7 @@ async function createAssignment(req: HttpRequest): Promise<HttpResponseInit> {
   if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(p)) return { status: 400, jsonBody: { error: 'invalid_principal_email' } };
   const role = (body.role ?? '').trim();
   if (!VALID_ROLES.includes(role)) return { status: 400, jsonBody: { error: 'invalid_role', valid: VALID_ROLES } };
-  const scope = (body.scope ?? 'project:sovera').trim().slice(0, 100);
+  const scope = (body.scope ?? 'project:gardia').trim().slice(0, 100);
   const name = (body.principalName ?? '').trim().slice(0, 200) || null;
 
   const r = await query<{ id: string; created_at: Date }>(

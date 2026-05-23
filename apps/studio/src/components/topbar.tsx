@@ -2,11 +2,11 @@
 
 import { Search, Command, ShieldAlert, Activity } from 'lucide-react';
 import { useEffect } from 'react';
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 import { Badge } from './ui';
 
 export function Topbar() {
-  const { env, setEnv, impersonating, setPaletteOpen } = useSovera();
+  const { env, setEnv, impersonating, setPaletteOpen } = useGardia();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

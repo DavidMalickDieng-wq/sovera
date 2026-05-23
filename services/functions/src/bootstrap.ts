@@ -1,4 +1,4 @@
-// Bootstrap: idempotently create the app.* meta tables Sovera needs (api_keys, rbac).
+// Bootstrap: idempotently create the app.* meta tables Gardia needs (api_keys, rbac).
 // Called on each cold start of every Function so a fresh install self-heals.
 import { query } from './db.js';
 
@@ -32,7 +32,7 @@ export async function ensureSchema(): Promise<void> {
         principal   text not null,
         principal_name text,
         role        text not null check (role in ('Owner','Admin','Developer','Data Analyst','Auditor','Tenant Admin')),
-        scope       text not null default 'project:sovera',
+        scope       text not null default 'project:gardia',
         created_at  timestamptz not null default now(),
         unique (principal, role, scope)
       )

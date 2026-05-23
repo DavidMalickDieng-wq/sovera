@@ -19,7 +19,7 @@ export default function RlsPage() {
           </div>
           <H1>RLS Designer</H1>
           <p className="text-(--color-ink-mute) text-[13px] mt-1.5 max-w-2xl">
-            See exactly how a request becomes a row. Sovera traces the JWT claim through Postgres session GUCs into your USING/CHECK predicates — and explains it in plain English.
+            See exactly how a request becomes a row. Gardia traces the JWT claim through Postgres session GUCs into your USING/CHECK predicates — and explains it in plain English.
           </p>
         </div>
       </div>

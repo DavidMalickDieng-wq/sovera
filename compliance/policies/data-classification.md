@@ -5,11 +5,11 @@
 | Class | Examples | Handling |
 |---|---|---|
 | **C0 — Public** | Marketing pages, open-source code. | No restrictions. |
-| **C1 — Internal** | Architecture diagrams, RoPAs, SoA. | Shared inside Sovera + with audited vendors. |
+| **C1 — Internal** | Architecture diagrams, RoPAs, SoA. | Shared inside Gardia + with audited vendors. |
 | **C2 — Confidential** | Customer business data, application logs (no PII payload). | Encrypted at rest + in transit; access via Entra groups. |
 | **C3 — Restricted / Special category** | PHI, Art. 9 GDPR health data, authentication secrets. | C2 controls + per-tenant logical isolation, RLS forced, pgaudit, immutable audit, KV Premium HSM. |
 
-## Mapping to Sovera resources
+## Mapping to Gardia resources
 
 | Resource | Default class | Notes |
 |---|---|---|

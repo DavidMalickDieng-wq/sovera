@@ -12,7 +12,7 @@ evidence/<YYYY-MM-DD>/
 ├── region-policy.json             ← Region-lock policy assignment
 ├── cmk-keys.json                  ← KV key list, rotation policies, last-rotated dates
 ├── tls-config.json                ← TLS minimum / ciphers across storage/APIM/Postgres
-├── rbac-export.json               ← All role assignments scoped to the sovera RG
+├── rbac-export.json               ← All role assignments scoped to the gardia RG
 ├── role-assignments.json          ← Per-managed-identity scope/role/principal
 ├── tenant-registry.json           ← All tenants + tier + creation date (no PII)
 ├── ha-config.json                 ← HA settings per stateful resource
@@ -36,7 +36,7 @@ For now, run the queries manually:
 
 ```powershell
 # Region policy
-az policy assignment list --scope (az group show -n sovera --query id -o tsv) > region-policy.json
+az policy assignment list --scope (az group show -n gardia --query id -o tsv) > region-policy.json
 
 # CMK keys
 az keyvault key list --vault-name <kv> > cmk-keys.json

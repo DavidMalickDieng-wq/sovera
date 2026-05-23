@@ -16,9 +16,9 @@ type Ctx = {
   setPaletteOpen: (o: boolean) => void;
 };
 
-const SoveraCtx = createContext<Ctx | null>(null);
+const GardiaCtx = createContext<Ctx | null>(null);
 
-export function SoveraProvider({ children }: { children: ReactNode }) {
+export function GardiaProvider({ children }: { children: ReactNode }) {
   const [tenantSlug, setTenantSlug] = useState('acme');
   const [env, setEnv] = useState<Env>('production');
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -29,14 +29,14 @@ export function SoveraProvider({ children }: { children: ReactNode }) {
   const impersonating = env === 'production' && tenant.slug !== 'acme';
 
   return (
-    <SoveraCtx.Provider value={{ tenant, setTenantSlug, impersonating, env, setEnv, tenants, paletteOpen, setPaletteOpen }}>
+    <GardiaCtx.Provider value={{ tenant, setTenantSlug, impersonating, env, setEnv, tenants, paletteOpen, setPaletteOpen }}>
       {children}
-    </SoveraCtx.Provider>
+    </GardiaCtx.Provider>
   );
 }
 
-export function useSovera() {
-  const v = useContext(SoveraCtx);
-  if (!v) throw new Error('useSovera must be used inside <SoveraProvider>');
+export function useGardia() {
+  const v = useContext(GardiaCtx);
+  if (!v) throw new Error('useGardia must be used inside <GardiaProvider>');
   return v;
 }

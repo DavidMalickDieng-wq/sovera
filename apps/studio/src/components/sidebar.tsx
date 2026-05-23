@@ -58,7 +58,7 @@ export function Sidebar() {
         <Link href="/overview" className="flex items-center gap-2.5">
           <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-(--color-violet) to-(--color-cyan)" />
           <div>
-            <div className="brand-text text-[16px] font-semibold tracking-tight">Sovera</div>
+            <div className="brand-text text-[16px] font-semibold tracking-tight">Gardia</div>
             <div className="text-[10px] text-(--color-ink-mute) tracking-wider uppercase">Studio</div>
           </div>
         </Link>
@@ -101,7 +101,7 @@ export function Sidebar() {
       <div className="px-2.5 pb-2.5">
         <div className="mb-2.5 mx-2 p-3 rounded-[var(--radius)] border border-(--color-line) bg-gradient-to-br from-(--color-violet)/10 to-(--color-cyan)/5">
           <div className="flex items-center gap-1.5 text-[11px] text-(--color-ink-dim)">
-            <Sparkles className="h-3.5 w-3.5 text-(--color-violet)" /> Sovera AI
+            <Sparkles className="h-3.5 w-3.5 text-(--color-violet)" /> Gardia AI
           </div>
           <div className="text-[11px] text-(--color-ink-mute) mt-1 leading-snug">
             Ask "explain this policy" or "generate a migration" — coming soon.

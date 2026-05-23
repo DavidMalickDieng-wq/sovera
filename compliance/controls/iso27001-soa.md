@@ -1,6 +1,6 @@
 # ISO/IEC 27001:2022 — Statement of Applicability (SoA)
 
-Scope: Sovera platform (shared landing zone + API plane + tenant module + SDK).
+Scope: Gardia platform (shared landing zone + API plane + tenant module + SDK).
 ISMS owner: CTO (acting as CISO until role filled). Reviewed quarterly.
 
 Legend:

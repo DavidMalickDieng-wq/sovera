@@ -1,11 +1,11 @@
 {
-  "name": "@sovera/cli",
+  "name": "@gardia/cli",
   "version": "0.1.0",
-  "description": "Sovera command-line interface — manage tenants, deploy schema and functions, tail status.",
+  "description": "Gardia command-line interface — manage tenants, deploy schema and functions, tail status.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "sovera": "./dist/index.js"
+    "gardia": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "files": ["dist", "README.md"],

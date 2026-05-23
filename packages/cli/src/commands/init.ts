@@ -5,16 +5,16 @@ import { log, banner } from '../util/log.js';
 
 export async function initCommand(opts: { yes?: boolean }) {
   banner();
-  log.brand('Initialize a new Sovera workspace');
+  log.brand('Initialize a new Gardia workspace');
   log.blank();
 
   const cwd = process.cwd();
 
-  const existing = await fileExists(path.join(cwd, 'sovera.config.json'));
+  const existing = await fileExists(path.join(cwd, 'gardia.config.json'));
   if (existing && !opts.yes) {
     const { overwrite } = await prompts({
       type: 'confirm', name: 'overwrite',
-      message: 'sovera.config.json already exists. Overwrite?',
+      message: 'gardia.config.json already exists. Overwrite?',
       initial: false,
     });
     if (!overwrite) { log.warn('Aborted.'); return; }
@@ -34,7 +34,7 @@ export async function initCommand(opts: { yes?: boolean }) {
       ]);
 
   const config = {
-    $schema: 'https://sovera.cloud/schema/config.json',
+    $schema: 'https://gardia.cloud/schema/config.json',
     name: answers.name,
     region: answers.region,
     subscription: answers.subscription || undefined,
@@ -42,15 +42,15 @@ export async function initCommand(opts: { yes?: boolean }) {
     tenants: { module: './infra/modules/tenant.bicep', bootstrap: './services/db/tenant-bootstrap.sql' },
   };
 
-  await fs.writeFile(path.join(cwd, 'sovera.config.json'), JSON.stringify(config, null, 2) + '\n', 'utf-8');
-  log.ok(`Wrote ${path.relative(cwd, path.join(cwd, 'sovera.config.json'))}`);
+  await fs.writeFile(path.join(cwd, 'gardia.config.json'), JSON.stringify(config, null, 2) + '\n', 'utf-8');
+  log.ok(`Wrote ${path.relative(cwd, path.join(cwd, 'gardia.config.json'))}`);
 
   log.blank();
   log.brand('Next steps');
-  log.hint('1.  sovera login                 — authenticate to Azure');
-  log.hint('2.  sovera db push               — deploy schema migrations');
-  log.hint('3.  sovera tenant create acme    — onboard your first customer');
-  log.hint('4.  sovera status                — see what you just built');
+  log.hint('1.  gardia login                 — authenticate to Azure');
+  log.hint('2.  gardia db push               — deploy schema migrations');
+  log.hint('3.  gardia tenant create acme    — onboard your first customer');
+  log.hint('4.  gardia status                — see what you just built');
   log.blank();
 }
 

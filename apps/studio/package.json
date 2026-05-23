@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@sovera/client": "file:../../packages/client",
+    "@gardia/client": "file:../../packages/client",
     "lucide-react": "^0.460.0",
     "next": "^15.0.3",
     "react": "^19.0.0",

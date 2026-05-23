@@ -2,12 +2,12 @@
 
 ## Purpose
 
-Define who may access Sovera resources and customer data, with what privilege,
+Define who may access Gardia resources and customer data, with what privilege,
 and how that access is granted, reviewed, and revoked.
 
 ## Scope
 
-All Sovera production resources in the `sovera` Azure subscription(s) and any
+All Gardia production resources in the `gardia` Azure subscription(s) and any
 customer tenant deployed on top.
 
 ## Principles
@@ -25,10 +25,10 @@ customer tenant deployed on top.
 
 | Group | Privilege | PIM activation max | Approvers |
 |---|---|---|---|
-| `sovera-admins` | Owner on RG, KV Administrator, Postgres Entra admin | 4 h | 2-of-N |
-| `sovera-sre` | Contributor on RG (no KV) | 8 h | 1-of-N |
-| `sovera-readonly` | Reader on RG, Log Analytics Reader | standing | n/a |
-| `sovera-tenant-<slug>-admins` | Postgres Entra admin for that tenant DB | 4 h | Customer-side |
+| `gardia-admins` | Owner on RG, KV Administrator, Postgres Entra admin | 4 h | 2-of-N |
+| `gardia-sre` | Contributor on RG (no KV) | 8 h | 1-of-N |
+| `gardia-readonly` | Reader on RG, Log Analytics Reader | standing | n/a |
+| `gardia-tenant-<slug>-admins` | Postgres Entra admin for that tenant DB | 4 h | Customer-side |
 
 ## Provisioning
 

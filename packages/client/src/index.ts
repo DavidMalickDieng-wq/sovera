@@ -1,5 +1,5 @@
 /**
- * @sovera/client — Supabase-flavored SDK for the all-Azure Sovera BaaS.
+ * @gardia/client — Supabase-flavored SDK for the all-Azure Gardia BaaS.
  *
  *   const dl = createClient({ apimUrl, authority, clientId, scopes });
  *   await dl.auth.signIn();
@@ -8,6 +8,6 @@
  *   const { url } = await dl.storage.from('reports').uploadUrl('a.pdf');
  */
 export { createClient } from './client.js';
-export type { SoveraClient, SoveraOptions } from './client.js';
+export type { GardiaClient, GardiaOptions } from './client.js';
 export type { Query, QueryResult } from './query.js';
 export type { Channel, ChangeEvent } from './realtime.js';

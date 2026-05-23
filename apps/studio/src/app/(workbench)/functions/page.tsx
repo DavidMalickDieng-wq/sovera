@@ -20,7 +20,7 @@ const FUNCTIONS: Fn[] = [
   // Database
   { name: 'tables',          method: 'GET',    route: '/api/tables',                 scope: 'db:read',         desc: 'List Postgres tables + columns + RLS policies', group: 'Database' },
   { name: 'tables-create',   method: 'POST',   route: '/api/tables',                 scope: 'db:write',        desc: 'Create a new table (DDL allowlist)',            group: 'Database' },
-  { name: 'tenants',         method: 'GET',    route: '/api/tenants',                scope: 'db:read',         desc: 'List customer tenants from sovera.tenants',     group: 'Database' },
+  { name: 'tenants',         method: 'GET',    route: '/api/tenants',                scope: 'db:read',         desc: 'List customer tenants from gardia.tenants',     group: 'Database' },
   { name: 'logs',            method: 'GET',    route: '/api/logs',                   scope: 'db:read',         desc: 'KQL across AppRequests / AzureDiagnostics',     group: 'Database' },
   { name: 'sql',             method: 'POST',   route: '/api/sql',                    scope: 'db:read',         desc: 'Read-only SELECT / WITH gateway, 8s timeout',   group: 'Database' },
   { name: 'seed-demo',       method: 'POST',   route: '/api/seed-demo',              scope: 'db:write',        desc: 'Seed app.patients (15 rows)',                   group: 'Database' },

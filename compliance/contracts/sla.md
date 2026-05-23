@@ -1,12 +1,12 @@
-# Sovera Service Level Agreement (SLA)
+# Gardia Service Level Agreement (SLA)
 
 Effective for tenants on **Pro** and **Enterprise** tiers. Starter is best-effort.
 
 ## 1. Definitions
 
 - **Monthly Uptime Percentage** = `(total_minutes − unavailable_minutes) / total_minutes`.
-- **Unavailable** = the Sovera control APIs (REST/GraphQL via APIM) return 5xx
-  for ≥ 5 consecutive minutes attributable to Sovera.
+- **Unavailable** = the Gardia control APIs (REST/GraphQL via APIM) return 5xx
+  for ≥ 5 consecutive minutes attributable to Gardia.
 - **Scheduled maintenance** is announced ≥ 72 h in advance and excluded.
 
 ## 2. Service commitments
@@ -32,9 +32,9 @@ Customer must request the credit within 30 days of the incident.
 
 - Force majeure, Azure-attributable region outages with valid Microsoft incident.
 - Customer-caused changes (e.g. removing a Bicep module, deleting a tenant DB).
-- Network issues outside Sovera's control (customer ISP, Internet routing).
+- Network issues outside Gardia's control (customer ISP, Internet routing).
 
 ## 5. Reporting
 
-Status page: `status.sovera.fr` (Phase 6+). Public incident timeline,
+Status page: `status.gardia.fr` (Phase 6+). Public incident timeline,
 post-mortem within 5 business days for any P0/P1.

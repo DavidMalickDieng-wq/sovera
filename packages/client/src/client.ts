@@ -9,20 +9,20 @@ import { Storage } from './storage.js';
 import { Realtime, type Channel } from './realtime.js';
 import { Functions } from './functions.js';
 
-export interface SoveraOptions {
-  /** APIM gateway URL, e.g. https://api.sovera.fr */
+export interface GardiaOptions {
+  /** APIM gateway URL, e.g. https://api.gardia.fr */
   apimUrl: string;
   /** OIDC authority, e.g. https://<tenant>.ciamlogin.com/<tid>/v2.0 */
   authority: string;
-  /** SPA client ID (sovera-studio or sovera-sample). */
+  /** SPA client ID (gardia-studio or gardia-sample). */
   clientId: string;
-  /** Scopes to request. Defaults to ['api://sovera/access_as_user']. */
+  /** Scopes to request. Defaults to ['api://gardia/access_as_user']. */
   scopes?: string[];
   /** Reply URL. Defaults to window.location.origin. */
   redirectUri?: string;
 }
 
-export interface SoveraClient {
+export interface GardiaClient {
   auth: Auth;
   from: <T = any>(entity: string) => QueryBuilder<T>;
   storage: Storage;
@@ -32,8 +32,8 @@ export interface SoveraClient {
   rawFetch: (path: string, init?: RequestInit) => Promise<Response>;
 }
 
-export function createClient(opts: SoveraOptions): SoveraClient {
-  const scopes = opts.scopes ?? ['api://sovera/access_as_user'];
+export function createClient(opts: GardiaOptions): GardiaClient {
+  const scopes = opts.scopes ?? ['api://gardia/access_as_user'];
   const redirectUri = opts.redirectUri ?? (typeof window !== 'undefined' ? window.location.origin : '');
 
   const msalConfig: Configuration = {

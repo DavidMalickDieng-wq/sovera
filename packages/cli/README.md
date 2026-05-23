@@ -1,23 +1,23 @@
-# `@sovera/cli`
+# `@gardia/cli`
 
-The Sovera command-line interface — initialize, deploy, and operate your sovereign data backend.
+The Gardia command-line interface — initialize, deploy, and operate your sovereign data backend.
 
 ## Install
 
 ```bash
-npm install -g @sovera/cli
+npm install -g @gardia/cli
 ```
 
 ## Usage
 
 ```bash
-sovera init                       # scaffold sovera.config.json
-sovera login                      # az CLI sign-in
-sovera db push                    # apply SQL migrations
-sovera tenant create acme         # onboard a customer (starter tier)
-sovera tenant create acme -t pro  # …or pro / enterprise
-sovera functions deploy           # publish all function apps
-sovera status                     # list resources in your RG
+gardia init                       # scaffold gardia.config.json
+gardia login                      # az CLI sign-in
+gardia db push                    # apply SQL migrations
+gardia tenant create acme         # onboard a customer (starter tier)
+gardia tenant create acme -t pro  # …or pro / enterprise
+gardia functions deploy           # publish all function apps
+gardia status                     # list resources in your RG
 ```
 
-All commands honor `sovera.config.json` at the workspace root. Override per-call with `--rg`, `--tier`, etc.
+All commands honor `gardia.config.json` at the workspace root. Override per-call with `--rg`, `--tier`, etc.

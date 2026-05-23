@@ -67,7 +67,7 @@ export function NewTableDialog({ onCreated }: { onCreated: () => void }) {
             <div className="px-5 py-4 border-b border-(--color-line) flex items-center justify-between">
               <div>
                 <div className="text-[14px] text-(--color-ink)">Create table</div>
-                <div className="text-[11px] text-(--color-ink-mute)">Runs CREATE TABLE on the Sovera Postgres backend.</div>
+                <div className="text-[11px] text-(--color-ink-mute)">Runs CREATE TABLE on the Gardia Postgres backend.</div>
               </div>
               <button
                 onClick={() => !busy && setOpen(false)}

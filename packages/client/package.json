@@ -1,7 +1,7 @@
 {
-  "name": "@sovera/client",
+  "name": "@gardia/client",
   "version": "0.1.0",
-  "description": "Supabase-flavored client for Sovera (DAB + Web PubSub + Entra External ID).",
+  "description": "Supabase-flavored client for Gardia (DAB + Web PubSub + Entra External ID).",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

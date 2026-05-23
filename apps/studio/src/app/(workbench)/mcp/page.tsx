@@ -9,15 +9,15 @@ type Editor = 'claude' | 'cursor' | 'vscode' | 'continue' | 'windsurf' | 'cline'
 const FUNCTIONS_URL = process.env.NEXT_PUBLIC_FUNCTIONS_URL ?? 'https://sovera-fn-h2ssji7afhlr2.azurewebsites.net';
 
 const TOOLS = [
-  { name: 'sovera_sql',                 desc: 'Run SQL (read-only by default).' },
-  { name: 'sovera_tables_list',         desc: 'Inspect tables, columns, row counts.' },
-  { name: 'sovera_tenants_list',        desc: 'List tenants in the project.' },
-  { name: 'sovera_vector_search',       desc: 'Semantic search over embeddings (RAG-ready).' },
-  { name: 'sovera_vector_embed',        desc: 'Index text chunks for later retrieval.' },
-  { name: 'sovera_realtime_publish',    desc: 'Publish to a Web PubSub channel.' },
-  { name: 'sovera_blob_list',           desc: 'List blobs in a storage container.' },
-  { name: 'sovera_logs',                desc: 'Tail recent Functions logs from App Insights.' },
-  { name: 'sovera_compliance_status',   desc: 'HDS/GDPR posture, encryption, RBAC summary.' },
+  { name: 'gardia_sql',                 desc: 'Run SQL (read-only by default).' },
+  { name: 'gardia_tables_list',         desc: 'Inspect tables, columns, row counts.' },
+  { name: 'gardia_tenants_list',        desc: 'List tenants in the project.' },
+  { name: 'gardia_vector_search',       desc: 'Semantic search over embeddings (RAG-ready).' },
+  { name: 'gardia_vector_embed',        desc: 'Index text chunks for later retrieval.' },
+  { name: 'gardia_realtime_publish',    desc: 'Publish to a Web PubSub channel.' },
+  { name: 'gardia_blob_list',           desc: 'List blobs in a storage container.' },
+  { name: 'gardia_logs',                desc: 'Tail recent Functions logs from App Insights.' },
+  { name: 'gardia_compliance_status',   desc: 'HDS/GDPR posture, encryption, RBAC summary.' },
 ];
 
 const EDITORS: { id: Editor; label: string; config: string; path: string }[] = [
@@ -34,14 +34,14 @@ const EDITORS: { id: Editor; label: string; config: string; path: string }[] = [
 ];
 
 function buildConfig(editor: Editor, url: string, key: string, tenant: string, readOnly: boolean): string {
-  const env: Record<string, string> = { SOVERA_URL: url, SOVERA_KEY: key };
-  if (tenant) env.SOVERA_TENANT = tenant;
-  if (readOnly) env.SOVERA_READ_ONLY = '1';
-  const sovera = { command: 'npx', args: ['-y', '@sovera/mcp'], env };
+  const env: Record<string, string> = { GARDIA_URL: url, GARDIA_KEY: key };
+  if (tenant) env.GARDIA_TENANT = tenant;
+  if (readOnly) env.GARDIA_READ_ONLY = '1';
+  const gardia = { command: 'npx', args: ['-y', '@gardia/mcp'], env };
   if (editor === 'vscode') {
-    return JSON.stringify({ servers: { sovera: { type: 'stdio', ...sovera } } }, null, 2);
+    return JSON.stringify({ servers: { gardia: { type: 'stdio', ...gardia } } }, null, 2);
   }
-  return JSON.stringify({ mcpServers: { sovera } }, null, 2);
+  return JSON.stringify({ mcpServers: { gardia } }, null, 2);
 }
 
 export default function McpPage() {
@@ -63,7 +63,7 @@ export default function McpPage() {
   const keyPlaceholder = selectedKey ? `${selectedKey.prefix}…` : 'sov_live_xxxxxxxxxxxxxxxxxxxx';
   const effectiveTenant = tenant || (selectedKey?.tenant ?? '');
   const config = buildConfig(editor, FUNCTIONS_URL, keyPlaceholder, effectiveTenant, readOnly);
-  const npxCmd = `SOVERA_URL=${FUNCTIONS_URL} SOVERA_KEY=${keyPlaceholder}${effectiveTenant ? ` SOVERA_TENANT=${effectiveTenant}` : ''}${readOnly ? ' SOVERA_READ_ONLY=1' : ''} npx -y @sovera/mcp`;
+  const npxCmd = `GARDIA_URL=${FUNCTIONS_URL} GARDIA_KEY=${keyPlaceholder}${effectiveTenant ? ` GARDIA_TENANT=${effectiveTenant}` : ''}${readOnly ? ' GARDIA_READ_ONLY=1' : ''} npx -y @gardia/mcp`;
 
   const copy = (text: string, k: string) => {
     navigator.clipboard.writeText(text);
@@ -82,7 +82,7 @@ export default function McpPage() {
         </div>
         <H1>Model Context Protocol</H1>
         <p className="text-[13px] text-(--color-ink-mute) mt-1 max-w-3xl">
-          Connect Claude, Cursor, VS Code Copilot, Lovable, Windsurf, Continue.dev, or any MCP-capable agent directly to this Sovera project. The agent gets typed tools for SQL, vector search, realtime, blob, and logs — your API key, RBAC, RLS, and tenant isolation are enforced server-side.
+          Connect Claude, Cursor, VS Code Copilot, Lovable, Windsurf, Continue.dev, or any MCP-capable agent directly to this Gardia project. The agent gets typed tools for SQL, vector search, realtime, blob, and logs — your API key, RBAC, RLS, and tenant isolation are enforced server-side.
         </p>
       </div>
 
@@ -142,7 +142,7 @@ export default function McpPage() {
               {copied === 'cfg' ? <><CheckCircle2 className="h-3.5 w-3.5 text-(--color-good)" /> copied</> : <><Copy className="h-3.5 w-3.5" /> copy</>}
             </Button>
           </div>
-          <div className="mt-3 text-[11px] text-(--color-ink-mute)">Restart the editor. Ask the agent: <em className="text-(--color-ink-dim)">&ldquo;list my Sovera tables&rdquo;</em> or <em className="text-(--color-ink-dim)">&ldquo;semantic-search my docs for &lsquo;onboarding&rsquo;&rdquo;</em>.</div>
+          <div className="mt-3 text-[11px] text-(--color-ink-mute)">Restart the editor. Ask the agent: <em className="text-(--color-ink-dim)">&ldquo;list my Gardia tables&rdquo;</em> or <em className="text-(--color-ink-dim)">&ldquo;semantic-search my docs for &lsquo;onboarding&rsquo;&rdquo;</em>.</div>
         </div>
       </Card>
 
@@ -171,15 +171,15 @@ export default function McpPage() {
       <Card>
         <CardTitle className="flex items-center gap-2"><Shield className="h-3.5 w-3.5 text-(--color-good)" /> Safety model</CardTitle>
         <ul className="mt-2 space-y-1.5 text-[12px] text-(--color-ink-dim) list-disc list-inside">
-          <li>The MCP process runs <strong>on the operator&apos;s machine</strong> — no Sovera data ever leaves your subscription.</li>
+          <li>The MCP process runs <strong>on the operator&apos;s machine</strong> — no Gardia data ever leaves your subscription.</li>
           <li>API keys are <strong>tenant-locked server-side</strong>: even if the agent passes a different tenant, the Functions backend ignores it.</li>
-          <li><code className="font-mono">SOVERA_READ_ONLY=1</code> rejects writes both at the SQL parser layer (regex on statement prefix) and at the tool layer (embed/publish disabled).</li>
+          <li><code className="font-mono">GARDIA_READ_ONLY=1</code> rejects writes both at the SQL parser layer (regex on statement prefix) and at the tool layer (embed/publish disabled).</li>
           <li>Every tool call lands in <code className="font-mono">app.audit_log</code> with <code className="font-mono">actor=key:&lt;prefix&gt;</code>.</li>
           <li>Scope grants from the API Keys page still apply — an agent with a <Badge tone="cyan">embed:read</Badge> key cannot store new vectors regardless of read-only mode.</li>
         </ul>
         <div className="mt-3 flex items-center gap-3 text-[11px]">
           <a href="https://modelcontextprotocol.io" target="_blank" rel="noreferrer" className="text-(--color-cyan) hover:underline inline-flex items-center gap-1">MCP spec <ExternalLink className="h-3 w-3" /></a>
-          <a href="https://github.com/Quantumboxai/sovera/tree/main/packages/mcp-server" target="_blank" rel="noreferrer" className="text-(--color-cyan) hover:underline inline-flex items-center gap-1">source on github <ExternalLink className="h-3 w-3" /></a>
+          <a href="https://github.com/Quantumboxai/gardia/tree/main/packages/mcp-server" target="_blank" rel="noreferrer" className="text-(--color-cyan) hover:underline inline-flex items-center gap-1">source on github <ExternalLink className="h-3 w-3" /></a>
         </div>
       </Card>
     </div>

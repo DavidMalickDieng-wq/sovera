@@ -32,7 +32,7 @@ export async function functionsDeploy(opts: { app?: string; dir?: string }) {
       stdio: 'inherit', cwd: appDir, shell: process.platform === 'win32',
     });
     if (r.status !== 0) {
-      log.err(`Publish failed for ${app}. Is the function app provisioned? (sovera status)`);
+      log.err(`Publish failed for ${app}. Is the function app provisioned? (gardia status)`);
       process.exitCode = r.status ?? 1;
       return;
     }

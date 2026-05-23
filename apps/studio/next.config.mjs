@@ -4,7 +4,7 @@ const nextConfig = {
   // Standalone output bundles a minimal Node server + only the deps actually used.
   // Required for the slim Docker image used by the Container App.
   output: 'standalone',
-  transpilePackages: ['@sovera/client'],
+  transpilePackages: ['@gardia/client'],
   experimental: { typedRoutes: true }
 };
 export default nextConfig;

@@ -20,41 +20,41 @@ const SAMPLES: Record<Lang, { install?: string; code: string; note?: string }> =
   rest: {
     code: `# Pure REST — no client library required. Works from any language.
 curl -sS ${FUNCTIONS_URL}/api/sql \\
-  -H "authorization: Bearer $SOVERA_KEY" \\
+  -H "authorization: Bearer $GARDIA_KEY" \\
   -H "content-type: application/json" \\
   -d '{"sql":"select id, created_at from app.users limit 10","tenant":"acme"}'
 
 # Semantic search
 curl -sS ${FUNCTIONS_URL}/api/search \\
-  -H "authorization: Bearer $SOVERA_KEY" \\
+  -H "authorization: Bearer $GARDIA_KEY" \\
   -H "content-type: application/json" \\
   -d '{"query":"refund policy","k":5}'
 
 # List tables
 curl -sS ${FUNCTIONS_URL}/api/tables \\
-  -H "authorization: Bearer $SOVERA_KEY"`,
+  -H "authorization: Bearer $GARDIA_KEY"`,
   },
   ts: {
-    install: '# from a GitHub release tarball (npm publish coming):\nnpm install https://github.com/Quantumboxai/sovera/releases/download/client-v0.1.0/sovera-client-0.1.0.tgz',
-    code: `import { createClient } from '@sovera/client';
+    install: '# from a GitHub release tarball (npm publish coming):\nnpm install https://github.com/Quantumboxai/gardia/releases/download/client-v0.1.0/gardia-client-0.1.0.tgz',
+    code: `import { createClient } from '@gardia/client';
 
-const sovera = createClient({
-  url:    process.env.SOVERA_URL!,
-  apiKey: process.env.SOVERA_KEY!,   // server-side only — never ship to a browser
+const gardia = createClient({
+  url:    process.env.GARDIA_URL!,
+  apiKey: process.env.GARDIA_KEY!,   // server-side only — never ship to a browser
 });
 
 // Read
-const { rows } = await sovera.sql(
+const { rows } = await gardia.sql(
   \`select id, full_name from app.users limit 10\`,
   { tenant: 'acme' }
 );
 
 // Vector search
-const hits = await sovera.search({ query: 'onboarding steps', k: 5 });
+const hits = await gardia.search({ query: 'onboarding steps', k: 5 });
 
 // Embed
-await sovera.embed({ texts: ['…doc chunk…'], source: 'docs' });`,
-    note: 'Shipping today via local file: install or a GitHub release tarball. npm publish under @sovera/* is queued behind org verification.',
+await gardia.embed({ texts: ['…doc chunk…'], source: 'docs' });`,
+    note: 'Shipping today via local file: install or a GitHub release tarball. npm publish under @gardia/* is queued behind org verification.',
   },
   python: { code: '# Roadmap. Use the REST examples or generate a client from the OpenAPI spec\n# at GET /api/openapi.json (planned).', note: 'Not shipped yet. Use REST.' },
   go:     { code: '// Roadmap. Use the REST examples or generate a client from the OpenAPI spec\n// at GET /api/openapi.json (planned).', note: 'Not shipped yet. Use REST.' },
@@ -75,9 +75,9 @@ export default function SdkPage() {
         <div className="flex items-center gap-2 text-[12px] text-(--color-ink-mute) mb-2">
           <span>Developer</span><span>/</span><span className="text-(--color-ink-dim)">SDK Setup</span>
         </div>
-        <H1>Connect to Sovera</H1>
+        <H1>Connect to Gardia</H1>
         <p className="text-[13px] text-(--color-ink-mute) mt-1 max-w-3xl">
-          Sovera is a plain HTTPS API behind your function-key or <code className="font-mono text-(--color-ink)">sov_live_</code> API key — any language that can speak HTTP can use it. A first-party TypeScript client is shipping; Python, Go, and .NET wrappers are on the roadmap (use REST in the meantime).
+          Gardia is a plain HTTPS API behind your function-key or <code className="font-mono text-(--color-ink)">sov_live_</code> API key — any language that can speak HTTP can use it. A first-party TypeScript client is shipping; Python, Go, and .NET wrappers are on the roadmap (use REST in the meantime).
         </p>
       </div>
 
@@ -89,7 +89,7 @@ export default function SdkPage() {
           <div className="flex-1">
             <div className="text-[14px] font-medium text-(--color-ink)">Building an AI agent? Skip the SDK.</div>
             <p className="mt-1 text-[12px] text-(--color-ink-dim) leading-relaxed">
-              Sovera ships a <strong>Model Context Protocol</strong> server. Claude Desktop, Cursor, VS Code Copilot, Lovable, Windsurf, Continue.dev, and Cline can read your tables, run SQL, do vector search, and tail logs out of the box — no glue code required.
+              Gardia ships a <strong>Model Context Protocol</strong> server. Claude Desktop, Cursor, VS Code Copilot, Lovable, Windsurf, Continue.dev, and Cline can read your tables, run SQL, do vector search, and tail logs out of the box — no glue code required.
             </p>
             <Link href="/mcp" className="mt-3 inline-flex items-center gap-1.5 text-[12px] text-(--color-cyan) hover:underline">
               Connect an agent in 30 seconds <ArrowRight className="h-3 w-3" />
@@ -143,10 +143,10 @@ export default function SdkPage() {
           <Card>
             <CardTitle>Environment</CardTitle>
             <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-[12px]">
-              <Row k="SOVERA_URL" v={FUNCTIONS_URL} />
-              <Row k="SOVERA_KEY" v="(create on the API Keys page — sov_live_…)" />
-              <Row k="SOVERA_TENANT" v="optional — defaults to the key's bound tenant" />
-              <Row k="auth header" v="authorization: Bearer $SOVERA_KEY" />
+              <Row k="GARDIA_URL" v={FUNCTIONS_URL} />
+              <Row k="GARDIA_KEY" v="(create on the API Keys page — sov_live_…)" />
+              <Row k="GARDIA_TENANT" v="optional — defaults to the key's bound tenant" />
+              <Row k="auth header" v="authorization: Bearer $GARDIA_KEY" />
             </div>
           </Card>
 

@@ -8,13 +8,13 @@ import { functionsDeploy } from './commands/functions.js';
 import { status } from './commands/status.js';
 
 const program = new Command()
-  .name('sovera')
-  .description('Sovera — sovereign data backend for the EU. CLI.')
+  .name('gardia')
+  .description('Gardia — sovereign data backend for the EU. CLI.')
   .version('0.1.0');
 
 program
   .command('init')
-  .description('Initialize a new Sovera workspace')
+  .description('Initialize a new Gardia workspace')
   .option('-y, --yes', 'accept all defaults')
   .action(initCommand);
 
@@ -33,7 +33,7 @@ const tenant = program.command('tenant').description('Manage customer tenants');
 tenant.command('create <slug>')
   .description('Onboard a new tenant (deploys infra/modules/tenant.bicep + runs tenant-bootstrap.sql)')
   .option('-t, --tier <tier>', 'starter | pro | enterprise', 'starter')
-  .option('-g, --rg <name>',    'resource group (override sovera.config.json)')
+  .option('-g, --rg <name>',    'resource group (override gardia.config.json)')
   .action(tenantCreate);
 
 const fns = program.command('functions').description('Azure Functions operations');
@@ -45,8 +45,8 @@ fns.command('deploy')
 
 program
   .command('status')
-  .description('Show resources in your Sovera resource group')
-  .option('-g, --rg <name>', 'resource group (override sovera.config.json)')
+  .description('Show resources in your Gardia resource group')
+  .option('-g, --rg <name>', 'resource group (override gardia.config.json)')
   .action(status);
 
 program.parseAsync(process.argv).catch((err: unknown) => {

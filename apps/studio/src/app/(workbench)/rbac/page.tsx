@@ -17,7 +17,7 @@ export default function RbacPage() {
   const [showAdd, setShowAdd] = useState(false);
   const [principal, setPrincipal] = useState('');
   const [role, setRole] = useState('Developer');
-  const [scope, setScope] = useState('project:sovera');
+  const [scope, setScope] = useState('project:gardia');
 
   async function load() {
     setLoading(true); setErr(null);
@@ -108,7 +108,7 @@ export default function RbacPage() {
             </div>
             <div className="col-span-3">
               <label className="text-[11px] text-(--color-ink-mute) uppercase tracking-wider">Scope</label>
-              <input value={scope} onChange={e => setScope(e.target.value)} placeholder="project:sovera or tenant:acme"
+              <input value={scope} onChange={e => setScope(e.target.value)} placeholder="project:gardia or tenant:acme"
                 className="mt-1 w-full bg-black/30 border border-(--color-line) rounded-md px-3 py-2 text-[13px] text-(--color-ink) font-mono outline-none focus:border-(--color-cyan)" />
             </div>
           </div>

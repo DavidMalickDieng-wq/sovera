@@ -6,7 +6,7 @@ import {
   ArrowRight, Database, Terminal, Building2, Radio, ShieldCheck,
   ScrollText, HardDrive, LayoutDashboard, Plus,
 } from 'lucide-react';
-import { useSovera } from '@/lib/sovera';
+import { useGardia } from '@/lib/gardia';
 
 type Action = {
   id: string; label: string; group: string; icon: typeof Database; run: () => void;
@@ -14,7 +14,7 @@ type Action = {
 
 export function CommandPalette() {
   const router = useRouter();
-  const { paletteOpen, setPaletteOpen } = useSovera();
+  const { paletteOpen, setPaletteOpen } = useGardia();
   const [q, setQ] = useState('');
 
   const actions: Action[] = useMemo(() => [

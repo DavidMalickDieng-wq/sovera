@@ -5,7 +5,7 @@
 > HITECH Act, Omnibus Rule.
 
 This Business Associate Agreement ("Agreement") is entered into between
-**[Covered Entity Legal Name]** ("Covered Entity") and **Sovera SAS** ("Business Associate"),
+**[Covered Entity Legal Name]** ("Covered Entity") and **Gardia SAS** ("Business Associate"),
 effective **[Effective Date]**.
 
 ## 1. Definitions
@@ -94,4 +94,4 @@ business days** after discovery, providing:
 
 Signed for **Covered Entity**: ______________________  Date: __________
 
-Signed for **Sovera SAS**: ______________________  Date: __________
+Signed for **Gardia SAS**: ______________________  Date: __________
